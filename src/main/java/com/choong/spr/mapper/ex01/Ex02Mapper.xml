@@ -10,7 +10,8 @@
 </insert>
 
 <select id="selectReplyByBoardId" resultType="com.choong.spr.domain.ex01.ReplyDto">
-	SELECT id, board_id boardId, content, inserted FROM Reply WHERE board_id = #{boardId} ORDER BY id DESC
+	SELECT id, board_id boardId, content, inserted 
+	FROM Reply WHERE board_id = #{boardId} ORDER BY id DESC
 </select>
 
 <delete id="deleteReplyById">
@@ -21,6 +22,10 @@
 	UPDATE Reply SET content = #{content} WHERE id = #{id}
 </update>
 
+<!-- 댓글이 있는 게시물 지우기 위한 쿼리 -->
+<delete id="deleteReplyByBoardId">
+	DELETE FROM Reply WHERE board_id = #{boardId}
+</delete>
 
 
 </mapper>

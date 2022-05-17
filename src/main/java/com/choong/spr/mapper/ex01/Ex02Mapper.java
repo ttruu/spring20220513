@@ -13,5 +13,8 @@ public interface Ex02Mapper {
 	int deleteReplyById(int id);
 
 	int updateReply(ReplyDto reply);
+	
+	/*댓글이 있는 게시물 지우기 위한*/
+	void deleteReplyByBoardId(int BoardId);
 
 }

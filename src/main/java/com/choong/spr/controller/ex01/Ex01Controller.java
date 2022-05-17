@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choong.spr.domain.ex01.BoardDto;
+import com.choong.spr.domain.ex01.PageInfoDto;
 import com.choong.spr.domain.ex01.ReplyDto;
 import com.choong.spr.service.ex01.Ex01Service;
 import com.choong.spr.service.ex01.Ex02Service;
@@ -60,10 +62,12 @@ public class Ex01Controller {
 	public String modifyBoard(BoardDto board, RedirectAttributes rttr) {
 		boolean success = service.updateBoard(board);
 		
+		// 게시물을 수정할 경우엔 RedirectAttributes 사용해줄것
+		// model은 redirect하면 사라짐 
 		if(success) {
-			rttr.addFlashAttribute("message", "ok");
+			rttr.addFlashAttribute("suceess", "ok");
 		} else {
-			rttr.addFlashAttribute("message", "false");
+			rttr.addFlashAttribute("notSuccess", "notOk");
 		}
 		return "redirect:/ex01/board/" + board.getId();
 	}
@@ -90,6 +94,26 @@ public class Ex01Controller {
 		
 		return "redirect:/ex01/board/list";
 		/* return "redirect:/ex01/board/" + board.getId(); */
+	}
+	
+	@GetMapping("/board/list")
+	public String pagination(@RequestParam(name="page", defaultValue = "1")int page, Model model) {
+		
+		int rowPerPage = 3;
+		List<BoardDto> list = service.listBoardPage(page, rowPerPage);
+		
+		int totalRecords = service.countBoard();
+		
+		int end = (totalRecords - 1) / rowPerPage + 1;
+		
+		PageInfoDto pageInfo = new PageInfoDto();
+		pageInfo.setCurrent(page);
+		pageInfo.setEnd(end);
+		
+		model.addAttribute("boardList", list);
+		model.addAttribute("pageInfo", pageInfo);
+				
+		return "/ex01/board/list";
 	}
 
 	 
