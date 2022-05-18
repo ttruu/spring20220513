@@ -1,8 +1,8 @@
 package com.choong.spr.domain.ex01;
 
-import lombok.Data;
+import lombok.ToString;
 
-
+@ToString
 public class PageInfoDto {
 	private int current;
 	private int end;

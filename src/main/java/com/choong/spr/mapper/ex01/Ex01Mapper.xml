@@ -29,7 +29,11 @@
 	</insert>
 	
 	<select id="listBoardPage" resultType="com.choong.spr.domain.ex01.BoardDto">
-		SELECT id, title, inserted FROM Board LIMIT #{from}, #{row}
+		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply 
+		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id 
+		GROUP BY b.id
+		ORDER BY id
+		LIMIT #{from}, #{row}
 	</select>
 	
 	<select id="countBoard" resultType="int">

@@ -11,7 +11,14 @@
 
 <select id="selectReplyByBoardId" resultType="com.choong.spr.domain.ex01.ReplyDto">
 	SELECT id, board_id boardId, content, inserted 
-	FROM Reply WHERE board_id = #{boardId} ORDER BY id DESC
+	FROM Reply
+	WHERE board_id = #{boardId}
+	GROUP BY id
+</select>
+
+<select id="selectReplyByBoardCountId" resultType="com.choong.spr.domain.ex01.ReplyDto">
+    SELECT COUNT(*) AS numOfReply FROM Reply 
+    WHERE board_id = #{boardId}
 </select>
 
 <delete id="deleteReplyById">

@@ -10,4 +10,6 @@ public class ReplyDto {
 	private int boardId; // board_id column과 매칭
 	private String content;
 	private LocalDateTime inserted;
+	
+	private int numOfReply;
 }

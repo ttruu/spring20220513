@@ -145,8 +145,13 @@
 		<div class="row">
 			<div class="col">
 				<!-- 댓글 갯수 보여주기 -->
+				<!-- 내일 다시 보기 -->
+				<c:forEach items="${replyCount }" var="replyCount">
+					<h3>댓글 [${replyCount.numOfReply }]</h3>
+				</c:forEach>
+				
+				
 
-				<h3>댓글 [${board.numOfReply }]개</h3>
 
 				<ul class="list-group">
 					<!-- 댓글 보여주기 -->

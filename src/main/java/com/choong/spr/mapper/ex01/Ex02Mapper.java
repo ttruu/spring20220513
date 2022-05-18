@@ -9,6 +9,8 @@ public interface Ex02Mapper {
 	int insertReply(ReplyDto reply);
 
 	List<ReplyDto> selectReplyByBoardId(int boardId);
+	
+	List<ReplyDto> selectReplyByBoardCountId(int id);
 
 	int deleteReplyById(int id);
 

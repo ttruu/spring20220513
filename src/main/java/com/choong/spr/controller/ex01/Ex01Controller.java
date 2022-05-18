@@ -2,7 +2,6 @@ package com.choong.spr.controller.ex01;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,10 +46,14 @@ public class Ex01Controller {
 		/* 댓글 보이기 */
 		List<ReplyDto> replyList = replyService.listReplyByBoardId(id);
 		
+		List<ReplyDto> replyCount = replyService.listReplyCountByBoardId(id);
+
 		model.addAttribute("board", dto);
 		
 		/* 댓글 보이기 */
 		model.addAttribute("reply", replyList);
+		
+		model.addAttribute("replyCount", replyCount);
 
 
 		return "/ex01/board/get";
@@ -96,10 +99,12 @@ public class Ex01Controller {
 		/* return "redirect:/ex01/board/" + board.getId(); */
 	}
 	
+	
+	// 페이지네이션
 	@GetMapping("/board/list")
 	public String pagination(@RequestParam(name="page", defaultValue = "1")int page, Model model) {
 		
-		int rowPerPage = 3;
+		int rowPerPage = 5;
 		List<BoardDto> list = service.listBoardPage(page, rowPerPage);
 		
 		int totalRecords = service.countBoard();
@@ -109,6 +114,7 @@ public class Ex01Controller {
 		PageInfoDto pageInfo = new PageInfoDto();
 		pageInfo.setCurrent(page);
 		pageInfo.setEnd(end);
+		
 		
 		model.addAttribute("boardList", list);
 		model.addAttribute("pageInfo", pageInfo);

@@ -54,7 +54,7 @@ public class Ex01Service {
 	public List<BoardDto> listBoardPage(int page, int rowPerPage) {
 		int from = (page - 1) * rowPerPage;
 		
-		return mapper.listBoardPage(page, rowPerPage);
+		return mapper.listBoardPage(from, rowPerPage);
 	}
 
 	public int countBoard() {

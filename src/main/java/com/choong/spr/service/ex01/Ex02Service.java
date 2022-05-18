@@ -24,6 +24,11 @@ public class Ex02Service {
 	public List<ReplyDto> listReplyByBoardId(int boardId) {
 		return mapper.selectReplyByBoardId(boardId);
 	}
+	
+	public List<ReplyDto> listReplyCountByBoardId(int id) {
+		return mapper.selectReplyByBoardCountId(id);
+	}
+
 
 	public boolean deleteReplyById(int id) {
 		int cnt = mapper.deleteReplyById(id);
@@ -34,4 +39,5 @@ public class Ex02Service {
 		int cnt = mapper.updateReply(reply);
 		return cnt == 1;
 	}
+
 }
