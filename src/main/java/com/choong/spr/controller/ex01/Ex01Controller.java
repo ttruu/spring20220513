@@ -3,6 +3,7 @@ package com.choong.spr.controller.ex01;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,7 +69,7 @@ public class Ex01Controller {
 		// 게시물을 수정할 경우엔 RedirectAttributes 사용해줄것
 		// model은 redirect하면 사라짐 
 		if(success) {
-			rttr.addFlashAttribute("suceess", "ok");
+			rttr.addFlashAttribute("success", "ok");
 		} else {
 			rttr.addFlashAttribute("notSuccess", "notOk");
 		}
@@ -78,10 +79,14 @@ public class Ex01Controller {
 	
 	/* 삭제 */
 	@PostMapping("/board/delete")
-	public String deleteBoard(int id) {
+	public String deleteBoard(int id, RedirectAttributes rttr) {
 		boolean success = service.deleteBoardById(id);
-		
-		return "redirect:/ex01/board/list";
+		if(success) {
+			rttr.addFlashAttribute("success", "ok");
+		} else {
+			rttr.addFlashAttribute("notSuccess", "notOk");
+		}
+ 		return "redirect:/ex01/board/list";
 	}
 	
 	
@@ -111,6 +116,7 @@ public class Ex01Controller {
 		
 		int end = (totalRecords - 1) / rowPerPage + 1;
 		
+		
 		PageInfoDto pageInfo = new PageInfoDto();
 		pageInfo.setCurrent(page);
 		pageInfo.setEnd(end);
@@ -118,6 +124,8 @@ public class Ex01Controller {
 		
 		model.addAttribute("boardList", list);
 		model.addAttribute("pageInfo", pageInfo);
+		
+		
 				
 		return "/ex01/board/list";
 	}

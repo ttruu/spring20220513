@@ -1,5 +1,6 @@
 package com.choong.spr.domain.ex01;
 
+import lombok.Data;
 import lombok.ToString;
 
 @ToString
@@ -31,4 +32,6 @@ public class PageInfoDto {
 	public int getEnd() {
 		return end;
 	}
+
+
 }

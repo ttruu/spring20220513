@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="ex" tagdir="/WEB-INF/tags/page"%>
 
 <!DOCTYPE html>
 <html>
@@ -23,11 +24,19 @@
 </head>
 <body>
 	<my:navBar current="list" />
-	
+
 	<div class="container">
 		<div class="row">
 			<div class="col">
 				<h1>글 목록</h1>
+
+				<c:if test="${success == 'ok'}">
+					<div class="alert alert-primary">게시물이 삭제되었습니다</div>
+				</c:if>
+
+				<c:if test="${notSuccess == 'notOk'}">
+					<div class="alert alert-danger">게시물 삭제 중 문제가 발생하였습니다</div>
+				</c:if>
 
 				<table class="table table-striped">
 					<thead>
@@ -64,10 +73,11 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				
+
+
 				<div id="mt-3">
 				<ex:PageNation path="list"/>
-					
+
 				</div>
 			</div>
 		</div>

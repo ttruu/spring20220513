@@ -4,38 +4,73 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.choong.spr.mapper.ex01.Ex01Mapper">
 
-	<select id="selectBoardList" resultType="com.choong.spr.domain.ex01.BoardDto">
-	<!-- 게시물 테이블과 댓글 테이블 조합(댓글 갯수 보여주기 위해서) -->
-		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply 
+	<select id="selectBoardList"
+		resultType="com.choong.spr.domain.ex01.BoardDto">
+		<!-- 게시물 테이블과 댓글 테이블 조합(댓글 갯수 보여주기 위해서) -->
+		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply
 		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
 		GROUP BY b.id
-		ORDER BY id DESC
+		ORDER BY
+		id DESC
 	</select>
-	
-	<select id="getBoard" resultType="com.choong.spr.domain.ex01.BoardDto">
-		SELECT id, title, body, inserted FROM Board WHERE id = #{id}
+
+	<select id="getBoard"
+		resultType="com.choong.spr.domain.ex01.BoardDto">
+		SELECT id, title, body, inserted FROM Board WHERE id =
+		#{id}
 	</select>
-	
+
 	<update id="updateBoard">
-		UPDATE Board SET title = #{title}, body = #{body} WHERE id = #{id}
+		UPDATE Board SET title = #{title}, body = #{body}
+		WHERE id = #{id}
 	</update>
-	
+
 	<delete id="deleteBoard">
 		DELETE FROM Board WHERE id = #{id}
 	</delete>
-	
-	<insert id="insertBoard" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		INSERT INTO Board (title, body, inserted) VALUES (#{title}, #{body}, #{inserted})
+
+	<insert id="insertBoard" useGeneratedKeys="true" keyColumn="id"
+		keyProperty="id">
+		INSERT INTO Board (title, body, inserted) VALUES
+		(#{title}, #{body}, #{inserted})
 	</insert>
-	
-	<select id="listBoardPage" resultType="com.choong.spr.domain.ex01.BoardDto">
-		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply 
-		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id 
+
+	<select id="listBoardPage"
+		resultType="com.choong.spr.domain.ex01.BoardDto">
+		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply
+		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
 		GROUP BY b.id
-		ORDER BY id
+		ORDER BY id DESC
 		LIMIT #{from}, #{row}
 	</select>
-	
+
+	<!-- 게시물 목록 + 페이징 + 검색 -->
+	<!-- <select id="listBoardPageSearch"
+		resultType="com.choong.spr.domain.ex01.BoardDto">
+		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply
+		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
+		<if test='searchType.equals("title")'>
+			WHERE title LIKE concat()('%', #{keyword}, '%')
+		</if>
+
+		<if test='searchType.equals("content")'>
+			WHERE content LIKE concat('%', #{keyword}, '%')
+		</if>
+
+		<if test='searchType.equals("title_content")'>
+			WHERE title LIKE concat('%', #{keyword}, '%')
+			or content LIKE concat('%', #{keyword}, '%')
+		</if>
+
+		<if test='searchType.equals("writer")'>
+			WHERE writer LIKE concat('%', #{keyword}, '%')
+		</if>
+
+		GROUP BY b.id
+		ORDER BY id DESC
+		LIMIT #{from}, #{row}
+	</select> -->
+
 	<select id="countBoard" resultType="int">
 		SELECT Count(id) FROM Board
 	</select>

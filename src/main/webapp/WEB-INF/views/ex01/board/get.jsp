@@ -35,7 +35,6 @@
 				let form1 = $("#form1");
 				let actionAttr = "${appRoot}/ex01/board/delete";
 				form1.attr("action", actionAttr);
-				// 본문 삭제되는 거 !!!!!!!!!!!해야해!!!!!!!!
 				form1.submit();
 			}
 		});
@@ -82,11 +81,11 @@
 					</button>
 				</h1>
 
-				<c:if test="${suceess == 'ok'}">
+				<c:if test="${success == 'ok'}">
 					<div class="alert alert-primary">게시물이 수정되었습니다</div>
 				</c:if>
 
-				<c:if test="${notSucess == 'notOk'}">
+				<c:if test="${notSuccess == 'notOk'}">
 					<div class="alert alert-danger">게시물 수정 중 문제가 발생하였습니다</div>
 				</c:if>
 
@@ -149,8 +148,8 @@
 				<c:forEach items="${replyCount }" var="replyCount">
 					<h3>댓글 [${replyCount.numOfReply }]</h3>
 				</c:forEach>
-				
-				
+
+
 
 
 				<ul class="list-group">
