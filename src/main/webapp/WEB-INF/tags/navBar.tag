@@ -23,22 +23,6 @@
 			</ul>
 
 		
-		<!-- 검색 -->
-		<!-- 	<form class="" role="search">
-				<select name="searchType">
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-					<option value="title_content">제목+내용</option>
-					<option value="writer">작성자</option>
-				</select>
-
-				<input class="form-control me-2" name="keyword" id="keyword"
-					type="search" placeholder="Search" aria-label="Search"/>
-
-				<button class="btn btn-outline-success" name="btnSearch"
-					id="btnSearch" type="submit">검색</button>			
-			</form> -->
-
 		</div>
 	</div>
 </nav>

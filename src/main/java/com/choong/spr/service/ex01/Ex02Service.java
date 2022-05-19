@@ -15,7 +15,8 @@ public class Ex02Service {
 	private Ex02Mapper mapper;
 
 	public boolean addReply(ReplyDto reply) {
-		reply.setInserted(LocalDateTime.now());
+		/*db자체에서 불러옴*/
+		/*reply.setInserted(LocalDateTime.now());*/
 		
 		int cnt = mapper.insertReply(reply);
 		return cnt == 1;

@@ -74,12 +74,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1>${board.id }번
-					게시물
+				<h3>${board.id }번째 게시물
 					<button id="edit-button1" class="btn btn-secondary">
 						<i class="fa-solid fa-pen-to-square"></i>
 					</button>
-				</h1>
+				</h3>
 
 				<c:if test="${success == 'ok'}">
 					<div class="alert alert-primary">게시물이 수정되었습니다</div>
@@ -144,7 +143,7 @@
 		<div class="row">
 			<div class="col">
 				<!-- 댓글 갯수 보여주기 -->
-				<!-- 내일 다시 보기 -->
+				
 				<c:forEach items="${replyCount }" var="replyCount">
 					<h3>댓글 [${replyCount.numOfReply }]</h3>
 				</c:forEach>

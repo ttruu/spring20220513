@@ -25,10 +25,12 @@
 <body>
 	<my:navBar current="list" />
 
+
 	<div class="container">
 		<div class="row">
 			<div class="col">
 				<h1>글 목록</h1>
+	
 
 				<c:if test="${success == 'ok'}">
 					<div class="alert alert-primary">게시물이 삭제되었습니다</div>
@@ -76,7 +78,7 @@
 
 
 				<div id="mt-3">
-				<ex:PageNation path="list"/>
+					<ex:PageNation path="list" />
 
 				</div>
 			</div>

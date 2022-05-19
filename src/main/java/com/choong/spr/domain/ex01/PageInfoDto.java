@@ -1,12 +1,13 @@
 package com.choong.spr.domain.ex01;
 
-import lombok.Data;
 import lombok.ToString;
 
 @ToString
 public class PageInfoDto {
 	private int current;
 	private int end;
+	
+	
 	
 	public void setCurrent(int current) {
 		this.current = current;
@@ -32,6 +33,8 @@ public class PageInfoDto {
 	public int getEnd() {
 		return end;
 	}
+
+	
 
 
 }

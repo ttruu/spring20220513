@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.choong.spr.domain.ex01.BoardDto;
+import com.choong.spr.domain.ex01.PageInfoDto;
 
 public interface Ex01Mapper {
 
@@ -19,7 +20,7 @@ public interface Ex01Mapper {
 	int insertBoard(BoardDto board);
 
 	List<BoardDto> listBoardPage(@Param("from")int from, @Param("row") int row);
-
+	
 	int countBoard();
 
 }

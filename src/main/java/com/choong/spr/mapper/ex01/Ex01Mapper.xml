@@ -31,8 +31,8 @@
 
 	<insert id="insertBoard" useGeneratedKeys="true" keyColumn="id"
 		keyProperty="id">
-		INSERT INTO Board (title, body, inserted) VALUES
-		(#{title}, #{body}, #{inserted})
+		INSERT INTO Board (title, body) VALUES
+		(#{title}, #{body})
 	</insert>
 
 	<select id="listBoardPage"
@@ -44,34 +44,9 @@
 		LIMIT #{from}, #{row}
 	</select>
 
-	<!-- 게시물 목록 + 페이징 + 검색 -->
-	<!-- <select id="listBoardPageSearch"
-		resultType="com.choong.spr.domain.ex01.BoardDto">
-		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply
-		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
-		<if test='searchType.equals("title")'>
-			WHERE title LIKE concat()('%', #{keyword}, '%')
-		</if>
-
-		<if test='searchType.equals("content")'>
-			WHERE content LIKE concat('%', #{keyword}, '%')
-		</if>
-
-		<if test='searchType.equals("title_content")'>
-			WHERE title LIKE concat('%', #{keyword}, '%')
-			or content LIKE concat('%', #{keyword}, '%')
-		</if>
-
-		<if test='searchType.equals("writer")'>
-			WHERE writer LIKE concat('%', #{keyword}, '%')
-		</if>
-
-		GROUP BY b.id
-		ORDER BY id DESC
-		LIMIT #{from}, #{row}
-	</select> -->
-
+	
 	<select id="countBoard" resultType="int">
 		SELECT Count(id) FROM Board
+	
 	</select>
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.choong.spr.domain.ex01.BoardDto;
+import com.choong.spr.domain.ex01.PageInfoDto;
 import com.choong.spr.mapper.ex01.Ex01Mapper;
 import com.choong.spr.mapper.ex01.Ex02Mapper;
 
@@ -45,7 +46,8 @@ public class Ex01Service {
 	}
 
 	public boolean writeBoard(BoardDto board) {
-		board.setInserted(LocalDateTime.now());
+		/*db자체에서 현재시간으로 설정해놔서 필요없다*/
+		/*board.setInserted(LocalDateTime.now());*/
 		
 		int cnt = mapper.insertBoard(board);
 		return cnt == 1;
@@ -56,6 +58,7 @@ public class Ex01Service {
 		
 		return mapper.listBoardPage(from, rowPerPage);
 	}
+		
 
 	public int countBoard() {
 		return mapper.countBoard();
