@@ -2,20 +2,34 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.choong.spr.mapper.ex01.Ex01Mapper">
+<mapper namespace="com.choong.spr.mapper.BoardMapper">
 
 	<select id="selectBoardList"
-		resultType="com.choong.spr.domain.ex01.BoardDto">
+		resultType="com.choong.spr.domain.BoardDto">
 		<!-- 게시물 테이블과 댓글 테이블 조합(댓글 갯수 보여주기 위해서) -->
 		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply
 		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
+		<if test="keyword != '%%'">
+			<choose>
+				<when test="type == 'all'">
+					WHERE b.title LIKE #{keyword} OR
+						  b.body LIKE #{keyword}				
+				</when>
+				<when test="type == 'title'">
+					WHERE b.title LIKE #{keyword}
+				</when>
+				<when test="type == 'body'">
+					WHERE b.body LIKE #{keyword}
+				</when>
+			</choose>
+		</if>
 		GROUP BY b.id
 		ORDER BY
 		id DESC
 	</select>
 
 	<select id="getBoard"
-		resultType="com.choong.spr.domain.ex01.BoardDto">
+		resultType="com.choong.spr.domain.BoardDto">
 		SELECT id, title, body, inserted FROM Board WHERE id =
 		#{id}
 	</select>
@@ -35,7 +49,7 @@
 		(#{title}, #{body})
 	</insert>
 
-	<select id="listBoardPage"
+<!-- 	<select id="listBoardPage"
 		resultType="com.choong.spr.domain.ex01.BoardDto">
 		SELECT b.id, b.title, b.inserted, COUNT(r.id) numOfReply
 		FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
@@ -47,6 +61,7 @@
 	
 	<select id="countBoard" resultType="int">
 		SELECT Count(id) FROM Board
+	</select> -->
 	
-	</select>
+	
 </mapper>

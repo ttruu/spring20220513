@@ -1,4 +1,4 @@
-package com.choong.spr.service.ex01;
+package com.choong.spr.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -7,23 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.choong.spr.domain.ex01.BoardDto;
-import com.choong.spr.domain.ex01.PageInfoDto;
-import com.choong.spr.mapper.ex01.Ex01Mapper;
-import com.choong.spr.mapper.ex01.Ex02Mapper;
+import com.choong.spr.domain.BoardDto;
+import com.choong.spr.domain.PageInfoDto;
+import com.choong.spr.mapper.BoardMapper;
+import com.choong.spr.mapper.ReplyMapper;
 
 @Service
-public class Ex01Service {
+public class BoardService {
 	
 	@Autowired
-	private Ex01Mapper mapper;
+	private BoardMapper mapper;
 
 	@Autowired
-	private Ex02Mapper replyMapper;
+	private ReplyMapper replyMapper;
 	
-	public List<BoardDto> listBoard() {
-		
-		return mapper.selectBoardList();
+	public List<BoardDto> listBoard(String type, String keyword) {
+		// list 에 검색 폼 추가
+		return mapper.selectBoardList(type ,"%"+keyword+"%");
 	}
 
 	public BoardDto getBoard(int id) {
@@ -53,16 +53,16 @@ public class Ex01Service {
 		return cnt == 1;
 	}
 
-	public List<BoardDto> listBoardPage(int page, int rowPerPage) {
-		int from = (page - 1) * rowPerPage;
-		
-		return mapper.listBoardPage(from, rowPerPage);
-	}
-		
-
-	public int countBoard() {
-		return mapper.countBoard();
-	}
+	/*	public List<BoardDto> listBoardPage(int page, int rowPerPage) {
+			int from = (page - 1) * rowPerPage;
+			
+			return mapper.listBoardPage(from, rowPerPage);
+		}
+			
 	
+		public int countBoard() {
+			return mapper.countBoard();
+		}
+		*/
 	
 }

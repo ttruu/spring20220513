@@ -1,4 +1,4 @@
-package com.choong.spr.controller.ex01;
+package com.choong.spr.controller;
 
 import java.util.List;
 
@@ -13,35 +13,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.choong.spr.domain.ex01.BoardDto;
-import com.choong.spr.domain.ex01.PageInfoDto;
-import com.choong.spr.domain.ex01.ReplyDto;
-import com.choong.spr.service.ex01.Ex01Service;
-import com.choong.spr.service.ex01.Ex02Service;
+import com.choong.spr.domain.BoardDto;
+import com.choong.spr.domain.PageInfoDto;
+import com.choong.spr.domain.ReplyDto;
+import com.choong.spr.service.BoardService;
+import com.choong.spr.service.ReplyService;
 
 @Controller
-@RequestMapping("ex01")
-public class Ex01Controller {
+@RequestMapping("board")
+public class BoardController {
 
 	@Autowired
-	private Ex01Service service;
+	private BoardService service;
 	
 	@Autowired
-	private Ex02Service replyService;
+	private ReplyService replyService;
 	
 	/* 1. 보드 
 	 * 보드 리스트 */ 
-	@RequestMapping("/board/list") 
-	public void boardList(Model model) {
-		List<BoardDto> list = service.listBoard();
+	@RequestMapping("list") 
+	public void boardList(@RequestParam(name="type", defaultValue = "")String type, 
+						  @RequestParam(name="keyword", defaultValue = "") String keyword, 
+						  Model model) {
+		
+		List<BoardDto> list = service.listBoard(type, keyword);
 		
 		model.addAttribute("boardList", list);
 	}
+
 	
+	/* 쓰기 */
+	@GetMapping("write")
+	public void wirteBoard() {
+		
+	}
+	
+	@PostMapping("write")
+	public String writeBoardProcess(BoardDto board, RedirectAttributes rttr) {
+		boolean success = service.writeBoard(board);
+		
+		if (success) {
+			rttr.addFlashAttribute("message", "새 글이 등록되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "새 글이 등록되지 않았습니다.");
+		}
+		
+		return "redirect:/board/list";
+		/* return "redirect:/ex01/board/" + board.getId(); */
+	}
 	 
 	 /* 보드 내용 보기*/
-	@GetMapping("/board/{id}")
-	public String getBoard(@PathVariable("id") int id, Model model) {
+	@GetMapping("get")
+	public void getBoard(int id, Model model) {
 		BoardDto dto = service.getBoard(id);
 		
 		/* 댓글 보이기 */
@@ -55,58 +78,44 @@ public class Ex01Controller {
 		model.addAttribute("reply", replyList);
 		
 		model.addAttribute("replyCount", replyCount);
-
-
-		return "/ex01/board/get";
 	}
 	 
 	 
 	 /* 수정*/
-	@PostMapping("/board/modify")
+	@PostMapping("modify")
 	public String modifyBoard(BoardDto board, RedirectAttributes rttr) {
 		boolean success = service.updateBoard(board);
 		
 		// 게시물을 수정할 경우엔 RedirectAttributes 사용해줄것
 		// model은 redirect하면 사라짐 
 		if(success) {
-			rttr.addFlashAttribute("success", "ok");
+			rttr.addFlashAttribute("message", "글이 수정되었습니다.");
 		} else {
-			rttr.addFlashAttribute("notSuccess", "notOk");
+			rttr.addFlashAttribute("message", "글이 수정되지 않았습니다.");
 		}
-		return "redirect:/ex01/board/" + board.getId();
+		
+		rttr.addAttribute("id", board.getId());
+		return "redirect:/board/get";
 	}
 	
 	
 	/* 삭제 */
-	@PostMapping("/board/delete")
+	@PostMapping("delete")
 	public String deleteBoard(int id, RedirectAttributes rttr) {
 		boolean success = service.deleteBoardById(id);
 		if(success) {
-			rttr.addFlashAttribute("success", "ok");
+			rttr.addFlashAttribute("message", "글이 삭제 되었습니다.");
 		} else {
-			rttr.addFlashAttribute("notSuccess", "notOk");
+			rttr.addFlashAttribute("message", "글이 삭제 되지않았습니다.");
 		}
- 		return "redirect:/ex01/board/list";
+ 		return "redirect:/board/list";
 	}
 	
 	
-	/* 쓰기 */
-	@GetMapping("/board/write")
-	public void wirteBoard() {
-		
-	}
-	
-	@PostMapping("/board/write")
-	public String writeBoardProcess(BoardDto board) {
-		boolean success = service.writeBoard(board);
-		
-		return "redirect:/ex01/board/list";
-		/* return "redirect:/ex01/board/" + board.getId(); */
-	}
 	
 	
 	// 페이지네이션
-	@GetMapping("/board/list")
+	/* @GetMapping("list")
 	public String pagination(@RequestParam(name="page", defaultValue = "1")int page, Model model) {
 		
 		int rowPerPage = 5;
@@ -129,7 +138,7 @@ public class Ex01Controller {
 				
 		return "/ex01/board/list";
 	}
-
+*/
 	 
 	 
 }

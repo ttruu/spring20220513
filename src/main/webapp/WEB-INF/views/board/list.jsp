@@ -19,7 +19,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	referrerpolicy="no-referrer"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -30,14 +30,10 @@
 		<div class="row">
 			<div class="col">
 				<h1>글 목록</h1>
-	
-
-				<c:if test="${success == 'ok'}">
-					<div class="alert alert-primary">게시물이 삭제되었습니다</div>
-				</c:if>
-
-				<c:if test="${notSuccess == 'notOk'}">
-					<div class="alert alert-danger">게시물 삭제 중 문제가 발생하였습니다</div>
+				<c:if test="${not empty message }">
+					<div class="alert alert-primary">
+						${message }
+					</div>
 				</c:if>
 
 				<table class="table table-striped">
@@ -58,8 +54,13 @@
 							<tr>
 								<td>${board.id }</td>
 								<td>
-									<c:url value="/ex01/board/${board.id }" var="link" />
-									<a href="${link }"> ${board.title } </a>
+									<c:url value="/board/get" var="getUrl">
+										<c:param name="id" value="${board.id }"></c:param>
+									</c:url>
+									
+									<a href="${getUrl }">
+										<c:out value="${board.title }" />
+									</a>
 
 									<!-- 댓글 갯수 보여주기 -->
 									<c:if test="${board.numOfReply > 0}">
@@ -70,17 +71,17 @@
 									</c:if>
 								</td>
 
-								<td>${board.inserted }</td>
+								<td>${board.prettyInserted }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 
 
-				<div id="mt-3">
+		<%-- 		<div id="mt-3">
 					<ex:PageNation path="list" />
 
-				</div>
+				</div> --%>
 			</div>
 		</div>
 	</div>

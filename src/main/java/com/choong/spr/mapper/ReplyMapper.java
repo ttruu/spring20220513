@@ -1,10 +1,10 @@
-package com.choong.spr.mapper.ex01;
+package com.choong.spr.mapper;
 
 import java.util.List;
 
-import com.choong.spr.domain.ex01.ReplyDto;
+import com.choong.spr.domain.ReplyDto;
 
-public interface Ex02Mapper {
+public interface ReplyMapper {
 
 	int insertReply(ReplyDto reply);
 

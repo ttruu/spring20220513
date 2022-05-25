@@ -18,6 +18,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>	
 <script>
 	$(document).ready(function() {
 		$("#edit-button1").click(function() {
@@ -33,7 +34,7 @@
 
 			if (confirm("삭제하시겠습니까?")) {
 				let form1 = $("#form1");
-				let actionAttr = "${appRoot}/ex01/board/delete";
+				let actionAttr = "${appRoot}/board/delete";
 				form1.attr("action", actionAttr);
 				form1.submit();
 			}
@@ -80,17 +81,16 @@
 					</button>
 				</h3>
 
-				<c:if test="${success == 'ok'}">
-					<div class="alert alert-primary">게시물이 수정되었습니다</div>
+				<c:if test="${not empty message }">
+					<div class="alert alert-primary">
+						${message }
+					</div>
 				</c:if>
-
-				<c:if test="${notSuccess == 'notOk'}">
-					<div class="alert alert-danger">게시물 수정 중 문제가 발생하였습니다</div>
-				</c:if>
+			
 
 
 				<!-- 게시물 보기 + 수정 -->
-				<form id="form1" action="${appRoot }/ex01/board/modify"
+				<form id="form1" action="${appRoot }/board/modify"
 					method="post">
 					<input type="hidden" name="id" value="${board.id }" />
 					<div>
@@ -125,7 +125,7 @@
 		<div class="row">
 			<div class="col">
 				<!-- 댓글 쓰기 -->
-				<form action="${appRoot }/ex01/reply/add" method="post">
+				<form action="${appRoot }/reply/add" method="post">
 					<div class="input-group">
 						<input type="hidden" name="boardId" value="${board.id }" />
 						<input class="form-control" type="text" name="content" required />
@@ -159,7 +159,7 @@
 						<li class="list-group-item">
 							<div id="replyDisplayContainer${reply.id }">
 								<div class="fw-bold">
-									<i class="fa-solid fa-comment"></i>${reply.inserted }</div>
+									<i class="fa-solid fa-comment"></i>${reply.prettyInserted}</div>
 								${reply.content }
 
 								<!-- 댓글 수정버튼 -->
@@ -178,7 +178,7 @@
 							<!-- 댓글 수정 -->
 							<div id="replyEditFormContainer${reply.id }"
 								style="display: none;">
-								<form action="${appRoot }/ex01/reply/modify" method="post">
+								<form action="${appRoot }/reply/modify" method="post">
 									<div class="input-group">
 										<input type="hidden" name="id" value="${reply.id }" />
 										<input type="hidden" name="boardId" value="${board.id }" />
@@ -190,10 +190,11 @@
 									</div>
 								</form>
 							</div>
+							
 							<!-- 댓글 삭제 -->
 							<div class="d-none">
 								<form id="replyDeleteForm1"
-									action="${appRoot }/ex01/reply/delete" method="post">
+									action="${appRoot }/reply/delete" method="post">
 									<input id="replyDeleteInput1" type="hidden" name="id"
 										value="${reply.id }" />
 									<input type="hidden" name="boardId" value="${board.id }" />

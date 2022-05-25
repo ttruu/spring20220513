@@ -7,9 +7,9 @@
 	<ul class="pagination justify-content-center">
 
 		<c:if test="${pageInfo.current != 1 }">
-			<c:url value="${path }" var="link">
+<%-- 			<c:url value="${path }" var="link">
 				<c:param name="page" value="${pageInfo.left - 1 }"></c:param>
-			</c:url>
+			</c:url> --%>
 			<li class="page-item">
 				<a class="page-link" href="${link }">Prev</a>
 			</li>

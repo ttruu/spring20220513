@@ -1,15 +1,15 @@
-package com.choong.spr.mapper.ex01;
+package com.choong.spr.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.choong.spr.domain.ex01.BoardDto;
-import com.choong.spr.domain.ex01.PageInfoDto;
+import com.choong.spr.domain.BoardDto;
+import com.choong.spr.domain.PageInfoDto;
 
-public interface Ex01Mapper {
+public interface BoardMapper {
 
-	List<BoardDto> selectBoardList();
+	List<BoardDto> selectBoardList(@Param("type")String type, @Param("keyword")String keyword);
 
 	BoardDto getBoard(int id);
 

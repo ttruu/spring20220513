@@ -1,4 +1,4 @@
-package com.choong.spr.domain.ex01;
+package com.choong.spr.domain;
 
 import lombok.ToString;
 

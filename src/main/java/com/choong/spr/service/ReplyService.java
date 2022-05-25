@@ -1,4 +1,4 @@
-package com.choong.spr.service.ex01;
+package com.choong.spr.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,13 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.choong.spr.domain.ex01.ReplyDto;
-import com.choong.spr.mapper.ex01.Ex02Mapper;
+import com.choong.spr.domain.ReplyDto;
+import com.choong.spr.mapper.ReplyMapper;
 
 @Service
-public class Ex02Service {
+public class ReplyService {
+	
 	@Autowired
-	private Ex02Mapper mapper;
+	private ReplyMapper mapper;
 
 	public boolean addReply(ReplyDto reply) {
 		/*db자체에서 불러옴*/
