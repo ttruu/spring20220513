@@ -5,6 +5,7 @@
 <c:url value="/board/list" var="listUrl"></c:url>
 <c:url value="/board/write" var="writeUrl"></c:url>
 <c:url value="/member/signup" var="signupUrl"></c:url>
+<c:url value="/member/list" var="memberListUrl"></c:url>
 
 
 <nav class="navbar navbar-expand-md navbar-light bg-light">
@@ -33,9 +34,14 @@
 						href="${writeUrl}">글쓰기</a>
 				</li>
 				
+				<!-- 회원가입 -->
 				<li class="nav-item">
 					<a class="nav-link ${current == 'signup' ? 'active' : '' }"
 						href="${signupUrl}">회원가입</a>
+				</li>
+				
+				<li class="nav-item">
+					<a href="${memberListUrl}" class="nav-link ${current == 'memberList' ? 'active' : '' }">회원목록</a>
 				</li>
 			</ul>
 			
